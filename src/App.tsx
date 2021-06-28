@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import HeaderSample from './HeaderSample'
+import NavBar from './components/NavBar';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
+
+  const [data, setData] = React.useState()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          FiPie Project
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <NavBar />
     </div>
   );
 }
