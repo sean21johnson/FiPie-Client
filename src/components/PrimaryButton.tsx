@@ -3,15 +3,15 @@ import { Button } from "react-bootstrap";
 import "./PrimaryButton.css";
 
 interface ButtonComponentProps {
-	handlePrimaryClick: any,
+	handleButtonClick: any,
 	title: string
 }
 
-const PrimaryButton = ({ handlePrimaryClick, title }: ButtonComponentProps) => {
+const PrimaryButton: React.FC<ButtonComponentProps> = ({ handleButtonClick, title }) => {
 	return (
 		<>
 			<Button
-				onClick={handlePrimaryClick}
+				onClick={handleButtonClick}
 				className="investment-button"
 				variant="outline-primary"
 			>

@@ -1,33 +1,78 @@
 import React from "react";
 
-import { Form, Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 interface InvestmentFormProps {
-	handleInvestmentSubmit: any
-} 
+	handleInvestmentSubmit: any,
+	handleCancel: any
+}
 
-const InvestmentForm = ({ handleInvestmentSubmit }: InvestmentFormProps) => {
+const InvestmentForm = ({ handleInvestmentSubmit, handleCancel }: InvestmentFormProps) => {
 	return (
 		<Form onSubmit={handleInvestmentSubmit}>
-			<Form.Group className="mb-3" controlId="formBasicTicker">
+			<Form.Group className="mb-3" controlId="formTicker">
 				<Form.Label>Investment Ticker</Form.Label>
-				<Form.Control type="text" placeholder="Enter Ticker" required/>
+				<Form.Control type="text" placeholder="Enter Ticker" required />
 			</Form.Group>
 
-			<Form.Group className="mb-3" controlId="formBasicQuantity">
+			<Form.Group className="mb-3" controlId="formQuantity">
 				<Form.Label>Quantity Purchased</Form.Label>
-				<Form.Control type="number" placeholder="Enter # of Units" required/>
+				<Form.Control
+					type="number"
+					step="any"
+					placeholder="Enter # of Units"
+					required
+				/>
 			</Form.Group>
 
-{/* 
-			<Form.Select aria-label="Default select example">
-				<option>Open this select menu</option>
-				<option value="1">One</option>
-				<option value="2">Two</option>
-				<option value="3">Three</option>
-			</Form.Select> */}
+			<Form.Group className="mb-3" controlId="formPrice">
+				<Form.Label>Average Price Purchased</Form.Label>
+				<Form.Control
+					type="number"
+					step="any"
+					placeholder="Enter Average Price $"
+					required
+				/>
+			</Form.Group>
 
-			<Button variant="primary" type="submit" >
+			<Form.Group className="mb-3" controlId="formInvestmentVehicle">
+				<Form.Label>Investment Vehicle</Form.Label>
+				<Form.Control as="select" required>
+					<option value="">Choose...</option>
+					<option value="Stock">Stock</option>
+					<option value="Index Fund">Index Fund</option>
+					<option value="Cryptocurrency">Cryptocurrency</option>
+				</Form.Control>
+			</Form.Group>
+
+			<Form.Group className="mb-3" controlId="formInvestmentAccount">
+				<Form.Label>Institutional Account</Form.Label>
+				<Form.Control as="select" required>
+					<option value="">Choose...</option>
+					<option value="Capital One">Capital One</option>
+					<option value="Charles Schwab">Charles Schwab</option>
+					<option value="Chase Bank">Chase Bank</option>
+					<option value="Fidelity">Fidelity</option>
+					<option value="PNC Bank">PNC Bank</option>
+				</Form.Control>
+			</Form.Group>
+
+			<Form.Group className="mb-3" controlId="formInvestmentType">
+				<Form.Label>Investment Type</Form.Label>
+				<Form.Control as="select" required>
+					<option value="">Choose...</option>
+					<option value="Personal">Personal</option>
+					<option value="401k">401K</option>
+					<option value="ROTH IRA">ROTH IRA</option>
+				</Form.Control>
+			</Form.Group>
+
+			
+			<Button variant="danger" onClick={handleCancel} className="cancel_button">
+					Cancel
+				</Button>
+
+			<Button variant="primary" type="submit">
 				Submit
 			</Button>
 		</Form>
