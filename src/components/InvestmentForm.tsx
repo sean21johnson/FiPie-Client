@@ -57,7 +57,7 @@ const InvestmentForm = ({ handleInvestmentSubmit, handleCancel }: InvestmentForm
 				</Form.Control>
 			</Form.Group>
 
-			<Form.Group className="mb-3" controlId="formInvestmentType">
+			<Form.Group className="mb-3" controlId="formInvestmentPortfolio">
 				<Form.Label>Investment Type</Form.Label>
 				<Form.Control as="select" required>
 					<option value="">Choose...</option>

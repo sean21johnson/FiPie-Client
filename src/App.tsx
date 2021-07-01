@@ -11,14 +11,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-	const [investmentData, setInvestmentData] = React.useState([{}]);
-	const [investmentFormStatus, setInvestmentFormStatus] = React.useState(false);
-	const [cashData, setCashData] = React.useState([{}]);
-	const [cashFormStatus, setCashFormStatus] = React.useState(false);
-	const [expenseData, setExpenseData] = React.useState([{}]);
-	const [expenseFormStatus, setExpenseFormStatus] = React.useState(false);
+	let investmentData: Array<any>;
+	let setInvestmentData: any;
+	let investmentFormStatus: boolean;
+	let setInvestmentFormStatus: any;
+	let cashData: Array<any>;
+	let setCashData: any;
+	let cashFormStatus: boolean;
+	let setCashFormStatus: any;
+	let expenseData: Array<any>;
+	let setExpenseData: any;
+	let expenseFormStatus: boolean;
+	let setExpenseFormStatus: any;
 
-	console.log("cashData is", cashData);
+	[investmentData, setInvestmentData] = React.useState([]);
+	[investmentFormStatus, setInvestmentFormStatus] = React.useState(false);
+	[cashData, setCashData] = React.useState([]);
+	[cashFormStatus, setCashFormStatus] = React.useState(false);
+	[expenseData, setExpenseData] = React.useState([]);
+	[expenseFormStatus, setExpenseFormStatus] = React.useState(false);
 
 	const handleInvestmentFormStatus = () => {
 		investmentFormStatus
@@ -54,7 +65,7 @@ function App() {
 		const purchaseValue = quantity * price;
 		const investmentVehicle = e.target.formInvestmentVehicle.value;
 		const investmentAccount = e.target.formInvestmentAccount.value;
-		const investmentType = e.target.formInvestmentType.value;
+		const investmentPortfolio = e.target.formInvestmentPortfolio.value;
 
 		const newInvestment = {
 			ticker: ticker.toUpperCase(),
@@ -63,7 +74,8 @@ function App() {
 			originalCashValue: purchaseValue,
 			vehicle: investmentVehicle,
 			account: investmentAccount,
-			accountType: investmentType,
+			accountType: "",
+			accountPortfolio: investmentPortfolio,
 		};
 
 		setInvestmentData([...investmentData, { ...newInvestment }]);
@@ -73,7 +85,7 @@ function App() {
 		e.target.formPrice.value = "";
 		e.target.formInvestmentVehicle.value = "";
 		e.target.formInvestmentAccount.value = "";
-		e.target.formInvestmentType.value = "";
+		e.target.formInvestmentPortfolio.value = "";
 
 		setInvestmentFormStatus(false);
 	};
@@ -132,20 +144,12 @@ function App() {
 
 	const getFinancialData = () => {
 		let allFinancialData: Array<any>;
-		allFinancialData = [];
 
-		// Investment Data
-		// Cash Data
-		// Expense Data
-
-		allFinancialData = [...investmentData];
-
-		console.log('allFinancialData in getFinancialData is', allFinancialData)
+		allFinancialData = [...cashData, ...investmentData, ...expenseData];
 
 		return allFinancialData;
 	};
 
-	console.log('cashData is', cashData)
 
 	// pass allFinancialData into a few different functions to get the data arrays that I need to pass to the pieCharts
 
@@ -159,11 +163,14 @@ function App() {
 		let checkingFinancialData: Array<any>;
 
 		allFinancialData = getFinancialData();
+
 		checkingFinancialData = [...allFinancialData];
 
 		checkingArr = checkingFinancialData.filter(
 			(item) => item.accountType === "Checking"
 		);
+
+		console.log('checkingArr is', checkingArr)
 
 		checkingArr.length > 0
 			? (checkingAmount = checkingArr.reduce((accumulator, currentValue) => {
@@ -181,11 +188,14 @@ function App() {
 		let savingsFinancialData: Array<any>;
 
 		allFinancialData = getFinancialData();
+
 		savingsFinancialData = [...allFinancialData];
 
 		savingsArr = savingsFinancialData.filter(
-			(item) => (item.accountType = "Savings")
+			(item) => item.accountType === "Savings"
 		);
+
+		console.log("savingsArr is", savingsArr);
 
 		savingsArr.length > 0
 			? (savingsAmount = savingsArr.reduce((accumulator, currentValue) => {
@@ -195,6 +205,7 @@ function App() {
 
 		return savingsAmount;
 	};
+
 
 	const checkingAndSavingsData = () => {
 		let checkingAndSavingsArr: Array<any>;
