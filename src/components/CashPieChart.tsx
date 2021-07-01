@@ -3,14 +3,16 @@ import React from "react";
 import { PieChart } from "react-minimal-pie-chart";
 
 interface CashPieChartProps {
-	data: any;
+	data: any,
+	handleSegmentClick: any
 }
 
-const CashPieChart: React.FC<CashPieChartProps> = ({ data }) => {
+const MyPieChart: React.FC<CashPieChartProps> = ({ data, handleSegmentClick }) => {
 
 	// console.log('data', data)
 
-	return <PieChart data={data}></PieChart>;
+	return <PieChart data={data} onClick={handleSegmentClick}></PieChart>;
+
 };
 
-export default CashPieChart;
+export default MyPieChart;

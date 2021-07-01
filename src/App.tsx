@@ -5,7 +5,7 @@ import PrimaryButton from "./components/PrimaryButton";
 import InvestmentForm from "./components/InvestmentForm";
 import CashForm from "./components/CashForm";
 import ExpenseForm from "./components/ExpenseForm";
-import CashPieChart from "./components/CashPieChart";
+import MyPieChart from "./components/CashPieChart";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -31,6 +31,8 @@ function App() {
 	[expenseData, setExpenseData] = React.useState([]);
 	[expenseFormStatus, setExpenseFormStatus] = React.useState(false);
 
+
+	// HANDLE FORM STATUSES
 	const handleInvestmentFormStatus = () => {
 		investmentFormStatus
 			? setInvestmentFormStatus(false)
@@ -56,6 +58,7 @@ function App() {
 		setExpenseFormStatus(false);
 	};
 
+	// HANDLE FORM SUBMISSIONS
 	const handleInvestmentSubmit = (e: any) => {
 		e.preventDefault();
 
@@ -137,11 +140,13 @@ function App() {
 		setExpenseFormStatus(false);
 	};
 
+	// HANDLE CANCEL BUTTON CLICKED
 	const handleCancel = () => {
 		setCashFormStatus(false);
 		setInvestmentFormStatus(false);
 	};
 
+	// AGGREGATE ALL FINANCIAL DATA
 	const getFinancialData = () => {
 		let allFinancialData: Array<any>;
 
@@ -150,12 +155,7 @@ function App() {
 		return allFinancialData;
 	};
 
-
-	// pass allFinancialData into a few different functions to get the data arrays that I need to pass to the pieCharts
-
-	// getCheckingBalance
-	// loop through the allFinancialData array and add up the originalCashValue amounts for those that have an accountType of "Checking"
-
+	// GET SPECIFIC BALANCES
 	const getCheckingBalance = () => {
 		let allFinancialData: Array<any>;
 		let checkingArr: Array<any>;
@@ -169,8 +169,6 @@ function App() {
 		checkingArr = checkingFinancialData.filter(
 			(item) => item.accountType === "Checking"
 		);
-
-		console.log('checkingArr is', checkingArr)
 
 		checkingArr.length > 0
 			? (checkingAmount = checkingArr.reduce((accumulator, currentValue) => {
@@ -195,8 +193,6 @@ function App() {
 			(item) => item.accountType === "Savings"
 		);
 
-		console.log("savingsArr is", savingsArr);
-
 		savingsArr.length > 0
 			? (savingsAmount = savingsArr.reduce((accumulator, currentValue) => {
 					return accumulator + currentValue.originalCashValue;
@@ -206,7 +202,7 @@ function App() {
 		return savingsAmount;
 	};
 
-
+	// GET SPECIFIC DATA TO PASS TO THE PIE CHART COMPONENTS
 	const checkingAndSavingsData = () => {
 		let checkingAndSavingsArr: Array<any>;
 		let savingsAmount: number;
@@ -233,6 +229,10 @@ function App() {
 
 		return checkingAndSavingsArr;
 	};
+
+	const handleSegmentClick = () => {
+		console.log('segment clicked')
+	}
 
 	// getSavingsBalance
 
@@ -282,7 +282,7 @@ function App() {
 				""
 			)}
 
-			<CashPieChart data={checkingAndSavingsData()}> </CashPieChart>
+			<MyPieChart data={checkingAndSavingsData()} handleSegmentClick={handleSegmentClick}> </MyPieChart>
 		</div>
 	);
 }
