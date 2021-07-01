@@ -1,7 +1,4 @@
 import React from "react";
-// import ReactSvgPieChart from "react-svg-piechart";
-import { PieChart } from 'react-minimal-pie-chart'
-
 
 import NavBar from "./components/NavBar";
 import PrimaryButton from "./components/PrimaryButton";
@@ -20,6 +17,8 @@ function App() {
 	const [cashFormStatus, setCashFormStatus] = React.useState(false);
 	const [expenseData, setExpenseData] = React.useState([{}]);
 	const [expenseFormStatus, setExpenseFormStatus] = React.useState(false);
+
+	console.log("cashData is", cashData);
 
 	const handleInvestmentFormStatus = () => {
 		investmentFormStatus
@@ -61,13 +60,13 @@ function App() {
 			ticker: ticker.toUpperCase(),
 			quantity: quantity,
 			averagePrice: price,
-			purchaseValue: purchaseValue,
-			investmentVehicle: investmentVehicle,
-			investmentAccount: investmentAccount,
-			investmentType: investmentType,
+			originalCashValue: purchaseValue,
+			vehicle: investmentVehicle,
+			account: investmentAccount,
+			accountType: investmentType,
 		};
 
-		setInvestmentData([...investmentData, { investment: newInvestment }]);
+		setInvestmentData([...investmentData, { ...newInvestment }]);
 
 		e.target.formTicker.value = "";
 		e.target.formQuantity.value = "";
@@ -76,60 +75,157 @@ function App() {
 		e.target.formInvestmentAccount.value = "";
 		e.target.formInvestmentType.value = "";
 
-		setInvestmentFormStatus(false)
+		setInvestmentFormStatus(false);
 	};
 
 	const handleCashSubmit = (e: any) => {
 		e.preventDefault();
 
 		const cashAmount = e.target.formCashAmount.value * 1;
-		const cashValue = cashAmount;
-		const cashAccount = e.target.cashInvestmentAccount.value;
-		const cashType = e.target.cashInvestmentType.value;
+		const cashValue = e.target.formCashAmount.value * 1;
+		const cashAccount = e.target.cashAccount.value;
+		const cashType = e.target.cashType.value;
 
 		const newCash = {
-			cashAmount: cashAmount,
-			cashValue: cashValue,
-			cashAccount: cashAccount,
-			cashType: cashType,
+			originalCashAmount: cashAmount,
+			originalCashValue: cashValue,
+			account: cashAccount,
+			accountType: cashType,
 		};
 
 		setCashData([...cashData, { ...newCash }]);
 
 		e.target.formCashAmount.value = "";
-		e.target.cashInvestmentAccount.value = "";
-		e.target.cashInvestmentType.value = "";
+		e.target.cashAccount.value = "";
+		e.target.cashType.value = "";
 
-		setCashFormStatus(false)
+		setCashFormStatus(false);
 	};
 
 	const handleExpenseSubmit = (e: any) => {
 		e.preventDefault();
 
 		const expenseAmount = e.target.formExpenseAmount.value * -1;
-		const expenseValue = expenseAmount;
+		const expenseValue = e.target.formExpenseAmount.value * -1;
 		const expenseAccount = e.target.formInvestmentAccount.value;
 		const expenseType = "Checking";
 
 		const newExpense = {
-			expenseAmount: expenseAmount,
-			expenseValue: expenseValue,
-			expenseAccount: expenseAccount,
-			expenseType: expenseType,
+			originalCashAmount: expenseAmount,
+			originalCashValue: expenseValue,
+			account: expenseAccount,
+			accountType: expenseType,
 		};
 
-		setExpenseData([...expenseData, { expense: newExpense }]);
+		setExpenseData([...expenseData, { ...newExpense }]);
 
 		e.target.formExpenseAmount.value = "";
 		e.target.formInvestmentAccount.value = "";
 
-		setExpenseFormStatus(false)
+		setExpenseFormStatus(false);
 	};
 
 	const handleCancel = () => {
 		setCashFormStatus(false);
 		setInvestmentFormStatus(false);
 	};
+
+	const getFinancialData = () => {
+		let allFinancialData: Array<any>;
+		allFinancialData = [];
+
+		// Investment Data
+		// Cash Data
+		// Expense Data
+
+		allFinancialData = [...investmentData];
+
+		console.log('allFinancialData in getFinancialData is', allFinancialData)
+
+		return allFinancialData;
+	};
+
+	console.log('cashData is', cashData)
+
+	// pass allFinancialData into a few different functions to get the data arrays that I need to pass to the pieCharts
+
+	// getCheckingBalance
+	// loop through the allFinancialData array and add up the originalCashValue amounts for those that have an accountType of "Checking"
+
+	const getCheckingBalance = () => {
+		let allFinancialData: Array<any>;
+		let checkingArr: Array<any>;
+		let checkingAmount: number;
+		let checkingFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+		checkingFinancialData = [...allFinancialData];
+
+		checkingArr = checkingFinancialData.filter(
+			(item) => item.accountType === "Checking"
+		);
+
+		checkingArr.length > 0
+			? (checkingAmount = checkingArr.reduce((accumulator, currentValue) => {
+					return accumulator + currentValue.originalCashValue;
+			  }, 0))
+			: (checkingAmount = 0);
+
+		return checkingAmount;
+	};
+
+	const getSavingsBalance = () => {
+		let allFinancialData: Array<any>;
+		let savingsArr: Array<any>;
+		let savingsAmount: number;
+		let savingsFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+		savingsFinancialData = [...allFinancialData];
+
+		savingsArr = savingsFinancialData.filter(
+			(item) => (item.accountType = "Savings")
+		);
+
+		savingsArr.length > 0
+			? (savingsAmount = savingsArr.reduce((accumulator, currentValue) => {
+					return accumulator + currentValue.originalCashValue;
+			  }, 0))
+			: (savingsAmount = 0);
+
+		return savingsAmount;
+	};
+
+	const checkingAndSavingsData = () => {
+		let checkingAndSavingsArr: Array<any>;
+		let savingsAmount: number;
+		let checkingAmount: number;
+		let checkingObj: object;
+		let savingsObj: object;
+
+		savingsAmount = getSavingsBalance();
+		checkingAmount = getCheckingBalance();
+
+		checkingObj = {
+			title: "Checking",
+			value: checkingAmount,
+			color: "#FF5733",
+		};
+
+		savingsObj = {
+			title: "Savings",
+			value: savingsAmount,
+			color: "#33FFF6",
+		};
+
+		checkingAndSavingsArr = [checkingObj, savingsObj];
+
+		return checkingAndSavingsArr;
+	};
+
+	// getSavingsBalance
+
+	// getCryptoBalance
 
 	return (
 		<div className="App">
@@ -175,7 +271,7 @@ function App() {
 				""
 			)}
 
-			<CashPieChart cashData={cashData}> </CashPieChart>
+			<CashPieChart data={checkingAndSavingsData()}> </CashPieChart>
 		</div>
 	);
 }

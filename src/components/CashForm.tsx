@@ -23,7 +23,7 @@ const CashForm = ({ handleCashSubmit, handleCancel }: CashFormProps) => {
 					/>
 				</Form.Group>
 
-				<Form.Group className="mb-3" controlId="cashInvestmentAccount">
+				<Form.Group className="mb-3" controlId="cashAccount">
 					<Form.Label>Institutional Account</Form.Label>
 					<Form.Control as="select" required>
 						<option value="">Choose...</option>
@@ -35,7 +35,7 @@ const CashForm = ({ handleCashSubmit, handleCancel }: CashFormProps) => {
 					</Form.Control>
 				</Form.Group>
 
-				<Form.Group className="mb-3" controlId="cashInvestmentType">
+				<Form.Group className="mb-3" controlId="cashType">
 					<Form.Label>Checking or Savings</Form.Label>
 					<Form.Control as="select" required>
 						<option value="">Choose...</option>
