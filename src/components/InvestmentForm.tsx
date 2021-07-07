@@ -54,6 +54,7 @@ const InvestmentForm = ({ handleInvestmentSubmit, handleCancel }: InvestmentForm
 					<option value="Chase Bank">Chase Bank</option>
 					<option value="Fidelity">Fidelity</option>
 					<option value="PNC Bank">PNC Bank</option>
+					<option value="Coinbase">Coinbase</option>
 				</Form.Control>
 			</Form.Group>
 

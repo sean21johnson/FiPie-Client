@@ -5,7 +5,8 @@ import PrimaryButton from "./components/PrimaryButton";
 import InvestmentForm from "./components/InvestmentForm";
 import CashForm from "./components/CashForm";
 import ExpenseForm from "./components/ExpenseForm";
-import MyPieChart from "./components/CashPieChart";
+import MyPieChart from "./components/MyPieChart";
+// import { getFinancialData } from "./financialUtilities";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -30,7 +31,6 @@ function App() {
 	[cashFormStatus, setCashFormStatus] = React.useState(false);
 	[expenseData, setExpenseData] = React.useState([]);
 	[expenseFormStatus, setExpenseFormStatus] = React.useState(false);
-
 
 	// HANDLE FORM STATUSES
 	const handleInvestmentFormStatus = () => {
@@ -149,9 +149,7 @@ function App() {
 	// AGGREGATE ALL FINANCIAL DATA
 	const getFinancialData = () => {
 		let allFinancialData: Array<any>;
-
 		allFinancialData = [...cashData, ...investmentData, ...expenseData];
-
 		return allFinancialData;
 	};
 
@@ -202,6 +200,136 @@ function App() {
 		return savingsAmount;
 	};
 
+	const getCryptoBalance = () => {
+		let allFinancialData: Array<any>;
+		let cryptoArr: Array<any>;
+		let cryptoAmount: number;
+		let cryptoFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+
+		cryptoFinancialData = [...allFinancialData];
+
+		cryptoArr = cryptoFinancialData.filter(
+			(item) => item.vehicle === "Cryptocurrency"
+		);
+
+		cryptoArr.length > 0
+			? (cryptoAmount = cryptoArr.reduce((accumulator, currentValue) => {
+					return accumulator + currentValue.originalCashValue;
+			  }, 0))
+			: (cryptoAmount = 0);
+
+		return cryptoAmount;
+	};
+
+	const getIndexBalance = () => {
+		let allFinancialData: Array<any>;
+		let indexArr: Array<any>;
+		let indexAmount: number;
+		let indexFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+
+		indexFinancialData = [...allFinancialData];
+
+		indexArr = indexFinancialData.filter(
+			(item) => item.vehicle === "Index Fund"
+		);
+
+		indexArr.length > 0
+			? (indexAmount = indexArr.reduce((accumulator, currentValue) => {
+					return accumulator + currentValue.originalCashValue;
+			  }, 0))
+			: (indexAmount = 0);
+
+		return indexAmount;
+	};
+
+	const getStockBalance = () => {
+		let allFinancialData: Array<any>;
+		let stockArr: Array<any>;
+		let stockAmount: number;
+		let stockFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+
+		stockFinancialData = [...allFinancialData];
+
+		stockArr = stockFinancialData.filter((item) => item.vehicle === "Stock");
+
+		stockArr.length > 0
+			? (stockAmount = stockArr.reduce((accumulator, currentValue) => {
+					return accumulator + currentValue.originalCashValue;
+			  }, 0))
+			: (stockAmount = 0);
+
+		return stockAmount;
+	};
+
+	const getPersonalBalance = () => {
+		let allFinancialData: Array<any>;
+		let personalArr: Array<any>;
+		let personalAmount: number;
+		let personalFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+
+		personalFinancialData = [...allFinancialData];
+
+		personalArr = personalFinancialData.filter((item) => item.accountPortfolio === "Personal")
+
+		personalArr.length > 0 ? (
+			personalAmount = personalArr.reduce((accumulator, currentValue) => {
+				return accumulator + currentValue.originalCashValue;
+			}, 0)
+		) : (personalAmount = 0)
+
+		return personalAmount
+	};
+
+	const get401KBalance = () => {
+		let allFinancialData: Array<any>;
+		let my401KArr: Array<any>;
+		let my401KAmount: number;
+		let my401KFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+
+		my401KFinancialData = [...allFinancialData];
+
+		my401KArr = my401KFinancialData.filter((item) => item.accountPortfolio === "401k")
+
+		my401KArr.length > 0 ? (
+			my401KAmount = my401KArr.reduce((accumulator, currentValue) => {
+				return accumulator + currentValue.originalCashValue;
+			}, 0)
+		) : (my401KAmount = 0)
+	
+		return my401KAmount;
+	};
+
+	const getRothBalance = () => {
+		let allFinancialData: Array<any>;
+		let rothArr: Array<any>;
+		let rothAmount: number;
+		let rothFinancialData: Array<any>;
+
+		allFinancialData = getFinancialData();
+
+		rothFinancialData = [...allFinancialData];
+
+		rothArr = rothFinancialData.filter((item) => item.accountPortfolio === "ROTH IRA");
+
+		rothArr.length > 0 ? (
+			rothAmount = rothArr.reduce((accumulator, currentValue) => {
+				return accumulator + currentValue.originalCashValue
+			}, 0)
+		) : (rothAmount = 0)
+
+		return rothAmount;
+	};
+
 	// GET SPECIFIC DATA TO PASS TO THE PIE CHART COMPONENTS
 	const checkingAndSavingsData = () => {
 		let checkingAndSavingsArr: Array<any>;
@@ -230,30 +358,70 @@ function App() {
 		return checkingAndSavingsArr;
 	};
 
+	const personalInvestmentData = () => {
+		let personalInvestmentDataArr: Array<any>;
+		let cryptoAmount: number;
+		let indexFundAmount: number;
+		let stockAmount: number;
+		let cryptoObj: object;
+		let indexFundObj: object;
+		let stockObj: object;
+
+		cryptoAmount = getCryptoBalance();
+		indexFundAmount = getIndexBalance();
+		stockAmount = getStockBalance();
+
+		cryptoObj = {
+			title: "Cryptocurrency",
+			value: cryptoAmount,
+			color: "#FF5733",
+		};
+
+		indexFundObj = {
+			title: "Index Funds",
+			value: indexFundAmount,
+			color: "#FC33FF",
+		};
+
+		stockObj = {
+			title: "Stocks",
+			value: stockAmount,
+			color: "#FF3F33",
+		};
+
+		personalInvestmentDataArr = [cryptoObj, indexFundObj, stockObj];
+
+		return personalInvestmentDataArr;
+	};
+
 	const handleSegmentClick = () => {
-		console.log('segment clicked')
-	}
-
-	// getSavingsBalance
-
-	// getCryptoBalance
+		console.log("segment clicked");
+	};
 
 	return (
 		<div className="App">
 			<NavBar />
 
-			<PrimaryButton
-				handleButtonClick={handleCashFormStatus}
-				title={"Add Cash"}
-			/>
-			<PrimaryButton
-				handleButtonClick={handleInvestmentFormStatus}
-				title={"Add Investment"}
-			/>
-			<PrimaryButton
-				handleButtonClick={handleExpenseFormStatus}
-				title={"Add Expense"}
-			/>
+			<div className="buttonbar">
+				<div className="buttonbar_button">
+					<PrimaryButton
+						handleButtonClick={handleCashFormStatus}
+						title={"Add Cash"}
+					/>
+				</div>
+				<div className="buttonbar_button">
+					<PrimaryButton
+						handleButtonClick={handleInvestmentFormStatus}
+						title={"Add Investment"}
+					/>
+				</div>
+				<div className="buttonbar_button">
+					<PrimaryButton
+						handleButtonClick={handleExpenseFormStatus}
+						title={"Add Expense"}
+					/>
+				</div>
+			</div>
 
 			{investmentFormStatus ? (
 				<InvestmentForm
@@ -282,7 +450,26 @@ function App() {
 				""
 			)}
 
-			<MyPieChart data={checkingAndSavingsData()} handleSegmentClick={handleSegmentClick}> </MyPieChart>
+			<div className="piecharts">
+				<div className="piechart_pie">
+					<MyPieChart
+						data={checkingAndSavingsData()}
+						handleSegmentClick={handleSegmentClick}
+						title={"Cash"}
+					>
+						{" "}
+					</MyPieChart>
+				</div>
+				<div className="piechart_pie">
+					<MyPieChart
+						data={personalInvestmentData()}
+						handleSegmentClick={handleSegmentClick}
+						title={"Investments"}
+					>
+						{" "}
+					</MyPieChart>
+				</div>
+			</div>
 		</div>
 	);
 }
