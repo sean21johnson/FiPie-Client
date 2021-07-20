@@ -1,12 +1,8 @@
-import App from './App'
-
 // AGGREGATE ALL FINANCIAL DATA
 const getFinancialData = (cashData: any, investmentData: any, expenseData: any) => {
     let allFinancialData: Array<any>;
 
     allFinancialData = [...cashData, ...investmentData, ...expenseData];
-
-    console.log('AllFinancialData is', allFinancialData);
 
     return allFinancialData;
 };
@@ -198,8 +194,6 @@ const getPersonalBalance = (cashData: Array<any>, investmentData: Array<any>, ex
     return personalAmount;
 };
 
-
-
 export {
     getFinancialData,
     getCheckingBalance,
@@ -211,8 +205,3 @@ export {
     getRothBalance,
     getPersonalBalance
 }
-
-
-// export {
-//     getFinancialData
-// }

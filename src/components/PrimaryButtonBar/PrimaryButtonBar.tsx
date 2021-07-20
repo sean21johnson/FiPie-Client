@@ -1,5 +1,5 @@
 import React from "react";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "../PrimaryButton/PrimaryButton";
 
 interface PrimaryButtonBarProps {
     onCashFormStatus: any,
