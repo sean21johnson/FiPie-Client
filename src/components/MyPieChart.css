@@ -1,5 +1,5 @@
 .piechart {
-    width: 150px;
+    max-width: 150px;
 }
 
 .piechart_container {

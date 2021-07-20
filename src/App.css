@@ -9,8 +9,14 @@
   margin-left: 10px;
 }
 
-.piecharts {
+.minipiecharts {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  margin-top: 50px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
 }

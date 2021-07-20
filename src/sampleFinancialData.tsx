@@ -1,0 +1,145 @@
+let sampleCashData = [
+	{
+		cashAccountType: "Checking",
+		institutionalAccount: "Charles Schwab",
+		originalCashAmount: 50000,
+		originalCashValue: 50000,
+	},
+	{
+		cashAccountType: "Checking",
+		institutionalAccount: "Chase Bank",
+		originalCashAmount: 75000,
+		originalCashValue: 75000,
+	},
+
+	{
+		cashAccountType: "Savings",
+		institutionalAccount: "Fidelity",
+		originalCashAmount: 60000,
+		originalCashValue: 60000,
+	},
+	{
+		cashAccountType: "Savings",
+		institutionalAccount: "Capital One",
+		originalCashAmount: 80000,
+		originalCashValue: 80000,
+	},
+];
+
+let sampleExpenseData = [
+	{
+		cashAccountType: "Checking",
+		institutionalAccount: "Chase Bank",
+		originalCashAmount: -10000,
+		originalCashValue: -10000,
+	},
+];
+
+let sampleInvestmentData = [
+	{
+		accountPortfolio: "Personal",
+		averagePrice: 50,
+		cashAccountType: "Investment",
+		instituionalAccount: "Chase Bank",
+		originalCashValue: 50000,
+		quantity: 1000,
+		ticker: "APPL",
+		vehicle: "Stock",
+	},
+	{
+		accountPortfolio: "Personal",
+		averagePrice: 75,
+		cashAccountType: "Investment",
+		instituionalAccount: "Charles Schwab",
+		originalCashValue: 37500,
+		quantity: 500,
+		ticker: "NFLX",
+		vehicle: "Stock",
+	},
+	{
+		accountPortfolio: "Personal",
+		averagePrice: 30000,
+		cashAccountType: "Investment",
+		instituionalAccount: "Coinbase",
+		originalCashValue: 60000,
+		quantity: 2,
+		ticker: "BTC",
+		vehicle: "Cryptocurrency",
+	},
+	{
+		accountPortfolio: "Personal",
+		averagePrice: 3000,
+		cashAccountType: "Investment",
+		instituionalAccount: "Coinbase",
+		originalCashValue: 90000,
+		quantity: 30,
+		ticker: "ETH",
+		vehicle: "Cryptocurrency",
+	},
+	{
+		accountPortfolio: "Personal",
+		averagePrice: 350,
+		cashAccountType: "Investment",
+		instituionalAccount: "Fidelity",
+		originalCashValue: 35000,
+		quantity: 100,
+		ticker: "FXAIX",
+		vehicle: "Index Fund",
+	},
+	{
+		accountPortfolio: "Personal",
+		averagePrice: 500,
+		cashAccountType: "Investment",
+		instituionalAccount: "Charles Schwab",
+		originalCashValue: 25000,
+		quantity: 50,
+		ticker: "DOW",
+		vehicle: "Index Fund",
+	},
+	{
+		accountPortfolio: "401k",
+		averagePrice: 50,
+		cashAccountType: "Investment",
+		instituionalAccount: "Charles Schwab",
+		originalCashValue: 7500,
+		quantity: 150,
+		ticker: "DKING",
+		vehicle: "Stock",
+	},
+	{
+		accountPortfolio: "401k",
+		averagePrice: 100,
+		cashAccountType: "Investment",
+		instituionalAccount: "Chase Bank",
+		originalCashValue: 30000,
+		quantity: 300,
+		ticker: "SP",
+		vehicle: "Index Fund",
+	},
+	{
+		accountPortfolio: "ROTH IRA",
+		averagePrice: 50,
+		cashAccountType: "Investment",
+		instituionalAccount: "Charles Schwab",
+		originalCashValue: 10000,
+		quantity: 200,
+		ticker: "PENN",
+		vehicle: "Stock",
+	},
+	{
+		accountPortfolio: "ROTH IRA",
+		averagePrice: 125,
+		cashAccountType: "Investment",
+		instituionalAccount: "Charles Schwab",
+		originalCashValue: 37500,
+		quantity: 300,
+		ticker: "NAS",
+		vehicle: "Index Fund",
+	},
+];
+
+export {
+    sampleCashData,
+    sampleInvestmentData,
+    sampleExpenseData
+}

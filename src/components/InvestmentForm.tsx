@@ -7,6 +7,32 @@ interface InvestmentFormProps {
 	handleCancel: any
 }
 
+
+// cashObj = {
+//     originalCashAmount: number,
+//     originalCashValue: number,
+//     institutionalAccount: "Capital One", "Charles Schwab", "Chase Bank", "Fidelity", "PNC Bank",
+//     cashAccountType: "Checking", "Savings"
+// }
+
+// expenseObj = {
+//     originalCashAmount: number,
+//     originalCashValue: number,
+//     instutionalAccount: "Capital One", "Charles Schwab", "Chase Bank", "Fidelity", "PNC Bank",
+//     cashAccountType: "Checking"
+// }
+
+// investmentObj = {
+//     ticker: string,
+//     quantity: number,
+//     averagePrice: number,
+//     originalCashValue: number,
+//     vehicle: "Index Fund", "Stock", "Cryptocurrency",
+//     institutionalAccount: "Capital One", "Charles Schwab", "Chase Bank", "Fidelity", "PNC Bank",
+//     cashAccountType: "Checking", "Savings", "Investment",
+//     accountPortfolio: "Personal", "401K", "Roth IRA"
+// }
+
 const InvestmentForm = ({ handleInvestmentSubmit, handleCancel }: InvestmentFormProps) => {
 	return (
 		<Form onSubmit={handleInvestmentSubmit}>
